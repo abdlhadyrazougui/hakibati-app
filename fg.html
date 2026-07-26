@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تطبيق حقيبتي التربوية | كشافة سفراء السلام</title>
+    <!-- خطوط جوجل (القاهرة) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <!-- مكتبة الأيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --tiffany-primary: #00B4D8;
+            --tiffany-dark: #0077B6;
+            --tiffany-light: #E0F7FA;
+            --bg-color: #f8f9fa;
+            --text-dark: #2b2d42;
+            --text-muted: #6c757d;
+            --whatsapp-color: #25D366;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* --- القسم العلوي (الخلفية والشعار) --- */
+        .hero {
+            background-image: linear-gradient(rgba(0, 119, 182, 0.85), rgba(0, 180, 216, 0.75)), url('BACKG.jpeg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 60px 20px 100px;
+            text-align: center;
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+            box-shadow: 0 10px 30px rgba(0, 119, 182, 0.3);
+            position: relative;
+        }
+
+        .hero-logo {
+            width: 130px;
+            height: 130px;
+            border-radius: 30px;
+            margin: 0 auto 15px auto;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            border: 4px solid rgba(255, 255, 255, 0.8);
+            object-fit: cover;
+            background-color: white;
+        }
+        
+        .dev-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.25);
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .hero h1 {
+            margin: 0 0 15px 0;
+            font-size: 36px;
+            font-weight: 900;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .hero p {
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto 20px auto;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .scroll-indicator {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0.9;
+        }
+
+        .scroll-indicator p {
+            font-size: 15px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            background: rgba(0,0,0,0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+
+        .scroll-indicator i {
+            font-size: 24px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* --- الحاوية العامة للأقسام --- */
+        .container {
+            max-width: 900px;
+            margin: -50px auto 40px auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .section-card {
+            background: white;
+            border-radius: 24px;
+            padding: 35px 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        .section-title {
+            color: var(--tiffany-dark);
+            font-size: 24px;
+            font-weight: 900;
+            margin-top: 0;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            border-bottom: 3px solid var(--tiffany-light);
+            padding-bottom: 15px;
+        }
+
+        .section-title i {
+            margin-left: 12px;
+            background: var(--tiffany-light);
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--tiffany-primary);
+        }
+
+        /* --- معرض الصور --- */
+        .screenshots-wrapper {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            padding-bottom: 20px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .screenshots-wrapper::-webkit-scrollbar {
+            height: 8px;
+        }
+        .screenshots-wrapper::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        .screenshots-wrapper::-webkit-scrollbar-thumb {
+            background: var(--tiffany-primary);
+            border-radius: 10px;
+        }
+
+        .screenshot {
+            flex: 0 0 240px;
+            scroll-snap-align: center;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            border: 5px solid #333;
+            background-color: var(--bg-color);
+            position: relative;
+        }
+
+        .screenshot img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .screenshot-title {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 119, 182, 0.85);
+            color: white;
+            text-align: center;
+            padding: 8px 0;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        /* --- دليل الاستخدام --- */
+        .guide-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .guide-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .guide-card {
+            background: var(--bg-color);
+            border-right: 4px solid var(--tiffany-primary);
+            padding: 20px;
+            border-radius: 16px;
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+        }
+
+        .guide-card h4 {
+            color: var(--tiffany-dark);
+            margin: 0 0 10px 0;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .guide-card h4 i {
+            margin-left: 8px;
+            color: var(--tiffany-primary);
+        }
+
+        .guide-card p {
+            margin: 0;
+            font-size: 14px;
+            color: #555;
+        }
+
+        /* --- دليل التثبيت --- */
+        .install-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            background: white;
+            padding: 15px;
+            border-radius: 16px;
+            border: 1px solid var(--tiffany-light);
+        }
+
+        .step-num {
+            background: linear-gradient(135deg, var(--tiffany-primary), var(--tiffany-dark));
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 20px;
+            margin-left: 15px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(0, 180, 216, 0.3);
+        }
+
+        .step-text h4 {
+            margin: 0 0 5px 0;
+            color: var(--text-dark);
+            font-size: 17px;
+        }
+
+        .step-text p {
+            margin: 0;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* --- قسم التحميل --- */
+        .download-section {
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--tiffany-light);
+            border-radius: 24px;
+            margin-top: 20px;
+            border: 2px dashed var(--tiffany-primary);
+        }
+
+        .download-section h3 {
+            color: var(--tiffany-dark);
+            margin-top: 0;
+            font-size: 24px;
+            font-weight: 900;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(90deg, var(--tiffany-primary), var(--tiffany-dark));
+            color: white;
+            text-decoration: none;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-size: 20px;
+            font-weight: 900;
+            box-shadow: 0 8px 25px rgba(0, 119, 182, 0.4);
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 119, 182, 0.5);
+        }
+
+        .download-btn i {
+            margin-right: 15px;
+            font-size: 26px;
+        }
+        
+        /* --- قسم الدعم الفني والتواصل --- */
+        .support-card {
+            background: white;
+            border-radius: 24px;
+            padding: 30px;
+            margin-top: 30px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border: 1px solid #eaeaea;
+        }
+        
+        .support-card h3 {
+            color: var(--text-dark);
+            margin-top: 0;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .support-card p {
+            color: var(--text-muted);
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .contact-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--whatsapp-color);
+            background: #e8f9ef;
+            padding: 10px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            direction: ltr; /* لضمان ظهور الرقم بشكل صحيح */
+            transition: all 0.3s ease;
+        }
+        
+        .contact-number:hover {
+            background: #d4f3e0;
+            transform: scale(1.05);
+        }
+        
+        .contact-number i {
+            margin-right: 10px;
+            font-size: 28px;
+        }
+
+        /* --- التذييل --- */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: var(--text-muted);
+            font-size: 14px;
+            background-color: white;
+            border-top: 1px solid #eaeaea;
+        }
+
+        .developer {
+            color: var(--tiffany-dark);
+            font-weight: 800;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- القسم العلوي (الخلفية والشعار) -->
+    <header class="hero">
+        <img src="LOGO.jpeg" alt="شعار حقيبتي التربوية" class="hero-logo">
+        <div class="dev-badge"><i class="fa-solid fa-code"></i> تطوير: عبد الهادي رزوگي</div>
+        <h1>حقيبتي التربوية</h1>
+        <p>المساعد الرقمي الأول للقائد الكشفي في إدارة أنشطة ومخيمات الأطفال بكل احترافية، تنظيم، وسهولة تامة.</p>
+        
+        <div class="scroll-indicator">
+            <p>انزل للأسفل لتحميل التطبيق</p>
+            <i class="fa-solid fa-angles-down"></i>
+        </div>
+    </header>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="container">
+        
+        <!-- قسم لقطات الشاشة (الصور) -->
+        <div class="section-card">
+            <h2 class="section-title"><i class="fa-solid fa-mobile-screen"></i> جولة داخل التطبيق</h2>
+            <div class="screenshots-wrapper">
+                <div class="screenshot">
+                    <img src="HOME.jpeg" alt="الواجهة الرئيسية">
+                    <div class="screenshot-title">الرئيسية</div>
+                </div>
+                <div class="screenshot">
+                    <img src="TIFL.jpeg" alt="واجهة الطفل">
+                    <div class="screenshot-title">إدارة الأطفال</div>
+                </div>
+                <div class="screenshot">
+                    <img src="HAKIBATI.jpeg" alt="حقيبتي التربوية">
+                    <div class="screenshot-title">حقيبتي</div>
+                </div>
+                <div class="screenshot">
+                    <img src="ANACHID.jpeg" alt="مكتبة الأناشيد">
+                    <div class="screenshot-title">الأناشيد</div>
+                </div>
+                <div class="screenshot">
+                    <img src="J.jpeg" alt="مكتبة الألعاب">
+                    <div class="screenshot-title">الألعاب</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم دليل الاستخدام المفصل -->
+        <div class="section-card">
+            <h2 class="section-title"><i class="fa-solid fa-book-open"></i> دليلك لاستخدام التطبيق باحترافية</h2>
+            <div class="guide-grid">
+                
+                <div class="guide-card">
+                    <h4><i class="fa-solid fa-children"></i> إدارة ملفات الأطفال</h4>
+                    <p>من واجهة <strong>"الطفل"</strong>، يمكنك إضافة بيانات الأطفال بدقة. لتعديل معلومات طفل، اضغط على ملفه. <strong>ملاحظة هامة:</strong> لحذف طفل نهائياً، قم ببساطة <strong>بسحب بطاقته لليمين أو اليسار</strong>.</p>
+                </div>
+
+                <div class="guide-card">
+                    <h4><i class="fa-solid fa-sack-dollar"></i> بنك الطفل والأمتعة</h4>
+                    <p>داخل ملف كل طفل، ستجد تبويبين: <strong>"بنك الطفل"</strong> لتسجيل المصاريف والإيداعات بدقة، و<strong>"الأمتعة"</strong> لجرد أغراضه. يمكنك أيضاً سحب أي غرض لليمين لحذفه عند الخطأ.</p>
+                </div>
+
+                <div class="guide-card">
+                    <h4><i class="fa-solid fa-music"></i> الأناشيد والألعاب الكشفية</h4>
+                    <p>استكشف واجهتي <strong>"الأناشيد"</strong> و <strong>"الألعاب"</strong> للحصول على محتوى ترفيهي وتثقيفي جاهز لتنشيط أي تجمع كشفي فوراً، وكل هذا يعمل <strong>بدون الحاجة للإنترنت</strong>.</p>
+                </div>
+
+                <div class="guide-card">
+                    <h4><i class="fa-solid fa-phone-volume"></i> التواصل السريع</h4>
+                    <p>لا داعي للبحث عن أرقام الهواتف؛ داخل ملف كل طفل توجد أيقونة اتصال خضراء. بضغطة واحدة، سيقوم التطبيق بتوجيهك للاتصال بولي أمره مباشرة في حالات الطوارئ.</p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- قسم طريقة التثبيت -->
+        <div class="section-card">
+            <h2 class="section-title"><i class="fa-solid fa-download"></i> خطوات تثبيت التطبيق</h2>
+            <div class="install-steps">
+                <div class="step">
+                    <div class="step-num">1</div>
+                    <div class="step-text">
+                        <h4>تحميل الملف (APK)</h4>
+                        <p>اضغط على زر التحميل الكبير في الأسفل. سيتم توجيهك إلى موقع MediaFire، اضغط هناك على الزر الأزرق (Download) لتحميل الملف.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-num">2</div>
+                    <div class="step-text">
+                        <h4>السماح بمصادر غير معروفة</h4>
+                        <p>لأن التطبيق مخصص للقادة وليس على متجر بلاي ستور، قد يطلب منك هاتفك عند فتح الملف السماح بتثبيت التطبيقات من "مصادر غير معروفة". قم بتفعيلها من الإعدادات.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-num">3</div>
+                    <div class="step-text">
+                        <h4>التثبيت والانطلاق</h4>
+                        <p>اضغط على "تثبيت" (Install). بمجرد الانتهاء، افتح التطبيق واستمتع بتجربة إدارة كشفية لا مثيل لها.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم التحميل (الزر الرئيسي) -->
+        <div class="download-section" id="download-area">
+            <h3>جاهز لتنظيم مخيمك القادم؟</h3>
+            <p>التطبيق مجاني ومخصص حصرياً للقادة الكشفيين.</p>
+            <a href="https://www.mediafire.com/file/p1ki1wpk475warb/hakibati.apk/file" class="download-btn" target="_blank">
+                <i class="fa-brands fa-android"></i>
+                تحميل التطبيق الآن
+            </a>
+            <div style="margin-top: 15px; font-size: 14px; color: #777; font-weight: bold;">
+                الإصدار 1.0.0 | حجم الملف: ~75 ميجابايت
+            </div>
+        </div>
+
+        <!-- قسم الدعم الفني -->
+        <div class="support-card">
+            <h3><i class="fa-solid fa-headset" style="color: var(--tiffany-primary);"></i> هل تواجه أي مشكلة؟</h3>
+            <p>في حال واجهتك أي صعوبة في تحميل التطبيق أو تثبيته، أو إذا كان لديك أي استفسار، لا تتردد في التواصل معي مباشرة:</p>
+            <!-- الزر يفتح تطبيق الواتساب أو جهات الاتصال في الهاتف -->
+            <a href="tel:0631305818" class="contact-number">
+                <i class="fa-brands fa-whatsapp"></i> 06 31 30 58 18
+            </a>
+        </div>
+
+    </div>
+
+    
+
+</body>
+</html>
